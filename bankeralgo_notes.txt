@@ -43,10 +43,10 @@ Available     = {5, 3, 4}	// available system's total amount of each resource ty
 Customer 0 requests {1, 1, 0}
 Run these calculations per request:
 Need <= Maximum?	or	{1, 1, 0} <= {3, 1, 2}?
-				   Need       Maximum
+				   		  Need        Maximum
 then,
 Need <= Available?	or	{1, 1, 0} <= {5, 3, 4}?
-				   Need       Available
+				   		  Need       Available
 
 If both tests pass, then accept request
 Else, deny request

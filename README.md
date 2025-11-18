@@ -10,9 +10,14 @@ This project implements the Banker's Algorithm to manage resource allocation for
 
 When a request is made, the program tentatively allocates resources and runs the safety algorithm to ensure the system remains in a safe state; if safe, the request is granted, otherwise it is deemed unsafe and denied.
 
+## Disclaimers
+Generative-AI, including ChatGPT models, were utilized in the making of contents in this repository:
+- This README.md was written with assistance from ChatGPT, including concepts regarding Banker's Algorithm.
+- All code within this repository was written by a human, with minor bug fixes assisted by generative-AI.
+
 ## Files
 - `PA2/banker.java` -- main program (reads `max.txt`, interactive console).
-- `PA2/max.txt` -- maximum demand matrix (one CSV row per customer).
+- `PA2/max.txt` -- maximum demand matrix.
   Example:
   ```
   6,4,7,3
@@ -23,7 +28,7 @@ When a request is made, the program tentatively allocates resources and runs the
   ```
 
 ## Max File Format and Locations
-- The program expects `max.txt` at `/workspaces/CGS3763_PA02/PA2/max.txt` (hardcoded).
+- The program expects `max.txt` at `/PA2/max.txt` (hardcoded).
 - Each of the 5 rows corresponds to a customer (C0..C4).
 - Each row contains 4 integers (R0..R3), comma-separated.
 
