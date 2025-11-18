@@ -1,0 +1,109 @@
+	Banker's Algorithm
+
+	1D Array Example
+
+Resource Type 0 = "Screwdrivers"	// group of instances is a resource type; "0"
+Instances = 5 total			// amount of screwdrivers
+
+A: % % % % %
+
+Resource Type 1 = "Wrenches"
+Instances = 3 total
+
+B: $ $ $
+
+Resource Type 2 = "Drills"
+Instances = 4 total
+
+C: @ @ @ @
+
+
+Available Instances
+A: 5
+B: 3
+C: 4
+
+Customer 0 needs, maximum:	// absolute max this customer can use of each resource type
+A: 3				// screwdrivers
+B: 1				// wrenches
+C: 2				// drills
+
+Customer 1 needs, maximum:
+A: 2
+B: 2
+C: 1
+
+Customer 2 needs, maximum:
+A: 2
+B: 0
+C: 3
+
+
+Let variables exist, where "0" is the customer 0:
+Maximum[0]    = {3, 1, 2}	// max needed amount of each resource type for customer "i"
+Need[0]       = {1, 1, 0}	// the request made by customer "i" for certain resources
+Allocation[0] = {0, 0, 0}	// resources currently allocated to customer "i"
+Available     = {5, 3, 4}	// available system's total amount of each resource type
+	         S  W  D
+
+Customer 0 requests {1, 1, 0}
+Run these calculations per request:
+Need <= Maximum?	or	{1, 1, 0} <= {3, 1, 2}?
+				   Need       Maximum
+then,
+Need <= Available?	or	{1, 1, 0} <= {5, 3, 4}?
+				   Need       Available
+
+If both tests pass, then accept request
+Else, deny request
+
+
+	2D Array Example
+
+NUMBER_OF_CUSTOMERS = 5 //[m]
+NUMBER_OF_RESOURCES = 4 //[n]
+
+Resource Type | Item	     | Index
+------------- | ------------ | -----
+R0            | Screwdrivers | 0    
+R1            | Wrenches     | 1    
+R2            | Drills       | 2    
+R3            | Saws         | 3    
+
+available[n] = {10, 5, 7, 8}	==>	./banker 10 5 7 8
+                R0  R1 R2 R3	==>	(command line prompt)
+
+maximum[m][n] = {
+    	{6, 4, 7, 3},   // Customer 0
+    	{4, 2, 3, 2},   // Customer 1
+    	{2, 5, 3, 3},   // Customer 2
+    	{6, 3, 3, 2},   // Customer 3
+    	{5, 6, 7, 5}    // Customer 4
+}
+
+allocation[m][n] = {
+    	{0, 1, 0, 2},   // Customer 0 holds some resources
+    	{2, 0, 0, 1},   // Customer 1
+    	{3, 0, 2, 0},   // Customer 2
+    	{2, 1, 1, 0},   // Customer 3
+    	{0, 0, 2, 2}    // Customer 4
+}
+
+
+therefore,
+maximum[0]    = {6, 4, 7, 3}
+allocation[0] = {0, 1, 0, 2}
+need[0]       = {6-0, 4-1, 7-0, 3-2} = {6, 3, 7, 1}  // maximum - allocation = max request
+need[1]       = {4-2, 2-0, 3-0, 2-1} = {2, 2, 3, 1}
+need[2]       = {2-3, 5-0, 3-2, 3-0} = {-1, 5, 1, 3} // customer 2 has too many of R0 
+need[3]       = {4, 2, 2, 2}
+need[4]       = {5, 6, 5, 3}
+
+
+need[m][n] = {
+    	{6, 3, 7, 1},   // Customer 0
+    	{2, 2, 3, 1},   // Customer 1
+    	{ -1,5, 1, 3},  // Customer 2
+    	{4, 2, 2, 2},   // Customer 3
+    	{5, 6, 5, 3}    // Customer 4
+}
