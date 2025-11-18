@@ -2,20 +2,14 @@
 
 	1D Array Example
 
-Resource Type 0 = "Screwdrivers"	// group of instances is a resource type; "0"
+Resource Type A = "Screwdrivers"	// group of instances is a resource type; "0"
 Instances = 5 total			// amount of screwdrivers
 
-A: % % % % %
-
-Resource Type 1 = "Wrenches"
+Resource Type B = "Wrenches"
 Instances = 3 total
 
-B: $ $ $
-
-Resource Type 2 = "Drills"
+Resource Type C = "Drills"
 Instances = 4 total
-
-C: @ @ @ @
 
 
 Available Instances
@@ -39,12 +33,12 @@ B: 0
 C: 3
 
 
-Let variables exist, where "0" is the customer 0:
-Maximum[0]    = {3, 1, 2}	// max needed amount of each resource type for customer "i"
-Need[0]       = {1, 1, 0}	// the request made by customer "i" for certain resources
-Allocation[0] = {0, 0, 0}	// resources currently allocated to customer "i"
+Let arrays exist, where "0" is customer 0:
+Maximum[0]    = {3, 1, 2}	// max needed amount of each resource type for customer 0
+Need[0]       = {1, 1, 0}	// the request made by customer 0 for certain resources
+Allocation[0] = {0, 0, 0}	// resources currently allocated to customer 0
 Available     = {5, 3, 4}	// available system's total amount of each resource type
-	         S  W  D
+	             A  B  C
 
 Customer 0 requests {1, 1, 0}
 Run these calculations per request:
