@@ -33,7 +33,7 @@ public class Main {
 			// try to locate max.txt in common relative locations
 			maxPath = locateMaxFile();
 			if (maxPath == null) {
-				System.err.println("Could not find max.txt. Put max.txt in the current directory or PA2/ subdirectory,\n" +
+				System.err.println("Could not find max.txt. Put max.txt in the current directory or src/ subdirectory,\n" +
 								   "or provide its path as the 5th argument:\n" +
 								   "  java Main <R0> <R1> <R2> <R3> <path/to/max.txt>"
 				);
@@ -116,8 +116,8 @@ public class Main {
 		List<String> candidates = Arrays.asList(
 			"./max.txt",
 			"max.txt",
-			"./PA2/max.txt",
-			"PA2/max.txt"
+			"./src/max.txt",
+			"src/max.txt"
 		);
 		for (String c : candidates) {
 			File f = new File(c);

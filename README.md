@@ -16,8 +16,8 @@ Generative-AI, including ChatGPT models, were utilized in the making of contents
 - All code within this repository was written by a human, with minor bug fixes assisted by generative-AI.
 
 ## Files
-- `PA2/banker.java` -- main program (reads `max.txt`, interactive console).
-- `PA2/max.txt` -- maximum demand matrix.
+- `src/banker.java` -- main program (reads `max.txt`, interactive console).
+- `src/max.txt` -- maximum demand matrix.
   Example:
   ```
   6,4,7,3
@@ -33,14 +33,14 @@ Generative-AI, including ChatGPT models, were utilized in the making of contents
 - The program will look for max.txt in the following locations (in order) when no path is provided:
   1. ./max.txt
   2. max.txt
-  3. ./PA2/max.txt
-  4. PA2/max.txt
+  3. ./src/max.txt
+  4. src/max.txt
 - Or provide an explicit path as a 5th command-line argument.
 
 ## Compile & Run
-Open a terminal in the repository (or the PA2 directory) and compile:
+Open a terminal in the repository (or the src directory) and compile:
 ```
-cd PA2
+cd src
 javac Banker.java Main.java
 ```
 
@@ -59,7 +59,7 @@ java Main 3 3 2 2
 ```
 - Provide explicit path to max.txt:
 ```
-java Main 3 3 2 2 /home/alice/projects/CGS3763_PA02/PA2/max.txt
+java Main 3 3 2 2 /home/zayne/projects/CGS3763_PA02/src/max.txt
 ```
 
 ## Interactive Commands
