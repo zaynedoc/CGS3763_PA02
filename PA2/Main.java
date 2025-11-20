@@ -4,8 +4,9 @@ import java.util.*;
 // Main class with user-interactive loop for Banker class
 public class Main {
 	public static void main(String[] args) {
-		if (args.length != Banker.NUMBER_OF_RESOURCES) {
-			System.err.println("Usage: java Main <R0> <R1> <R2> <R3>");
+		// accept either 4 args (resources) or 5 args (resources + maxFilePath)
+		if (args.length != Banker.NUMBER_OF_RESOURCES && args.length != Banker.NUMBER_OF_RESOURCES + 1) {
+			System.err.println("Usage: java Main <R0> <R1> <R2> <R3> [<path/to/max.txt>]");
 			return;
 		}
 
@@ -20,9 +21,27 @@ public class Main {
 			return;
 		}
 
-		String maxPath = "/workspaces/CGS3763_PA02/PA2/max.txt";
-		Banker banker;
+		// determine max.txt path: optional 5th arg or try common relative locations
+		String maxPath = null;
+		if (args.length == Banker.NUMBER_OF_RESOURCES + 1) {
+			maxPath = args[Banker.NUMBER_OF_RESOURCES];
+			if (!(new File(maxPath)).exists()) {
+				System.err.println("Provided max.txt path does not exist: " + maxPath);
+				return;
+			}
+		} else {
+			// try to locate max.txt in common relative locations
+			maxPath = locateMaxFile();
+			if (maxPath == null) {
+				System.err.println("Could not find max.txt. Put max.txt in the current directory or PA2/ subdirectory,\n" +
+								   "or provide its path as the 5th argument:\n" +
+								   "  java Main <R0> <R1> <R2> <R3> <path/to/max.txt>"
+				);
+				return;
+			}
+		}
 
+		Banker banker;
 		try {
 			banker = new Banker(available, maxPath);
 		} catch (IllegalArgumentException e) {
@@ -81,8 +100,8 @@ public class Main {
 				}
 			} else if (cmd.equals("INFO")) {
 				System.out.println("Commands\n" +
-								   "  RQ <customer> <r0> <r1> <r2> <r3>  - Request resources\n" +
-								   "  RL <customer> <r0> <r1> <r2> <r3>  - Release resources\n" +
+								   "  RQ <customer #> <r0> <r1> <r2> <r3>  - Request resources\n" +
+								   "  RL <customer #> <r0> <r1> <r2> <r3>  - Release resources\n" +
 								   "  STATE                              - Show current state\n" +
 								   "  EXIT                               - Exit the program");
 			} else {
@@ -90,5 +109,26 @@ public class Main {
 			}
 		}
 		sc.close();
+	}
+
+	// helper: try common relative locations for max.txt and return the first existing absolute path, or null
+	private static String locateMaxFile() {
+		List<String> candidates = Arrays.asList(
+			"./max.txt",
+			"max.txt",
+			"./PA2/max.txt",
+			"PA2/max.txt"
+		);
+		for (String c : candidates) {
+			File f = new File(c);
+			if (f.exists() && f.isFile()) {
+				try {
+					return f.getCanonicalPath();
+				} catch (IOException e) {
+					return f.getAbsolutePath();
+				}
+			}
+		}
+		return null;
 	}
 }

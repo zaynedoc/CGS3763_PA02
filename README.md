@@ -28,24 +28,38 @@ Generative-AI, including ChatGPT models, were utilized in the making of contents
   ```
 
 ## Max File Format and Locations
-- The program expects `max.txt` at `/PA2/max.txt` (hardcoded).
-- Each of the 5 rows corresponds to a customer (C0..C4).
-- Each row contains 4 integers (R0..R3), comma-separated.
+- The program uses `max.txt` to read the maximum demand matrix.
+- You can either place `max.txt` in a common relative location or pass its path to the program.
+- The program will look for max.txt in the following locations (in order) when no path is provided:
+  1. ./max.txt
+  2. max.txt
+  3. ./PA2/max.txt
+  4. PA2/max.txt
+- Or provide an explicit path as a 5th command-line argument.
 
 ## Compile & Run
-Open a terminal in the `PA2` directory and compile:
+Open a terminal in the repository (or the PA2 directory) and compile:
 ```
 cd PA2
-javac banker.java
+javac Banker.java Main.java
 ```
 
-Run the program with the initial available resources (four integers):
+Run the program with the initial available resources (four integers).
+You may optionally provide the path to max.txt as a 5th argument.
+
+Usage:
 ```
-java banker <R0> <R1> <R2> <R3>
+java Main <R0> <R1> <R2> <R3> [<path/to/max.txt>]
 ```
-Example:
+
+Examples:
+- Rely on default search (run from repository root or appropriate folder):
 ```
-java banker 3 3 2 2
+java Main 3 3 2 2
+```
+- Provide explicit path to max.txt:
+```
+java Main 3 3 2 2 /home/alice/projects/CGS3763_PA02/PA2/max.txt
 ```
 
 ## Interactive Commands
