@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+// constructor and helper methods for Banker class
 public class Banker {
 	public static final int NUMBER_OF_CUSTOMERS = 5;
 	public static final int NUMBER_OF_RESOURCES = 4;
@@ -10,12 +11,12 @@ public class Banker {
 	private int[][] allocation = new int[NUMBER_OF_CUSTOMERS][NUMBER_OF_RESOURCES];
 	private int[][] need = new int[NUMBER_OF_CUSTOMERS][NUMBER_OF_RESOURCES];
 
-	// Constructor: copy available vector and read maximums from file; initialize
-	// allocation & need
+	// constructor; copies available vector and read maximums from file; initialize allocation & need
 	public Banker(int[] availableInit, String maxFilePath) throws IllegalArgumentException {
-		if (availableInit == null || availableInit.length != NUMBER_OF_RESOURCES) {
-			throw new IllegalArgumentException("available vector must have length " + NUMBER_OF_RESOURCES);
+		if (availableInit == null || availableInit.length != 4) {
+			throw new IllegalArgumentException("available vector must have length 4");
 		}
+
 		System.arraycopy(availableInit, 0, this.available, 0, NUMBER_OF_RESOURCES);
 
 		if (!readMaximumFromFile(maxFilePath)) {
@@ -97,6 +98,7 @@ public class Banker {
 		}
 	}
 
+	// release resources from customer back to pool of available vectors
 	public void release_resources(int customer_num, int release[]) {
 		// validate customer index
 		if (customer_num < 0 || customer_num >= NUMBER_OF_CUSTOMERS)
@@ -120,6 +122,7 @@ public class Banker {
 		}
 	}
 
+	// safety algorithm; algebraicly compares need and work vectors	
 	public boolean isSafe() {
 		int[] work = new int[NUMBER_OF_RESOURCES];
 		boolean[] finish = new boolean[NUMBER_OF_CUSTOMERS];
@@ -132,12 +135,14 @@ public class Banker {
 			for (int i = 0; i < NUMBER_OF_CUSTOMERS; i++) {
 				if (!finish[i]) {
 					boolean canFinish = true;
+
 					for (int j = 0; j < NUMBER_OF_RESOURCES; j++) {
 						if (need[i][j] > work[j]) {
 							canFinish = false;
 							break;
 						}
 					}
+
 					if (canFinish) {
 						for (int j = 0; j < NUMBER_OF_RESOURCES; j++)
 							work[j] += allocation[i][j];
@@ -154,6 +159,7 @@ public class Banker {
 		return true;
 	}
 
+	// display the current state of all vectors and matrices
 	public void printState() {
 		System.out.print("Available: ");
 		for (int j = 0; j < NUMBER_OF_RESOURCES; j++) {
